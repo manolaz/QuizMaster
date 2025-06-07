@@ -8,12 +8,19 @@ skip-lint = false
 [programs.localnet]
 rush = "J7SqsE5DUZeNGKMYvpESEE3MyUymP8wdmXGyjydrJ2bi"
 
+[programs.devnet]
+rush = "J7SqsE5DUZeNGKMYvpESEE3MyUymP8wdmXGyjydrJ2bi"
+
 [registry]
 url = "https://api.apr.dev"
 
 [provider]
-cluster = "localnet"
+cluster = "https://devnet.helius-rpc.com/?api-key=4a2f7893-25a4-4014-a367-4f2fac75aa63"
 wallet = "~/.config/solana/id.json"
 
 [scripts]
 test = "yarn run ts-mocha -p ./tsconfig.json -t 1000000 tests/**/*.ts"
+
+[[test.genesis]]
+address = "magicGfKFQV1JQQhKZiZCbA7vnB9t8M78fuVs4i7xo1"
+program = "./tests/fixtures/magic_program.so"
