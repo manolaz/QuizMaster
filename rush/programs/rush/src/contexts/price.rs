@@ -52,6 +52,10 @@ impl<'info> DistributePrizes<'info> {
         let stored_winner1 = self.session.winners[0];
         let stored_winner2 = self.session.winners[1];
 
+        // since game has ended, update the vault date. 
+        self.vault_state.total_games_played += 1;
+     
+
         let cpi_program = self.system_program.to_account_info();
 
         // Prepare signer seeds for the vault PDA

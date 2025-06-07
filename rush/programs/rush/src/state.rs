@@ -80,7 +80,8 @@ pub struct PlayerSessionAnswer {
 // Game vault for rewards disbursement
 pub struct GameVault {
     pub total_disbursed: u64, 
-    pub bump: u8 
+    pub bump: u8,
+    pub total_games_played: u64,
 }
 
 
