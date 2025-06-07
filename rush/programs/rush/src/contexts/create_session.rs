@@ -37,7 +37,7 @@ impl <'info> CreateSession <'info> {
     &mut self,
     session_id: [u8; 32],
     question_ids: [u16; 10], //array of question IDs since we have a fixed number of questions from the backend
-    correct_answers: [u8; 10], //array of correct answers for the questions following exactly the same order as question_ids
+    correct_answers: [u8; 10], //array of question IDs since we have a fixed number of questions from the backend
   ) -> Result<()> {
 
      let clock = Clock::get()?;
