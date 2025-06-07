@@ -109,6 +109,7 @@ impl<'info> EndGameAndUndelegate<'info> {
 
         // Update session status to completed
         self.session.status = SessionStatus::Completed;
+        self.session.prizes_distributed = true;
         self.session.ended_at = Clock::get()?.unix_timestamp as u64;
 
         // Commit and undelegate all accounts back to mainnet

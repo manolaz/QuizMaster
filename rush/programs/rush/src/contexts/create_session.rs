@@ -61,6 +61,7 @@ impl <'info> CreateSession <'info> {
       status: SessionStatus::Initialized, 
       question_data: self.session_data.key(), 
       winners:  [Pubkey::default(); 2],
+      prizes_distributed: false
     }
     );
 

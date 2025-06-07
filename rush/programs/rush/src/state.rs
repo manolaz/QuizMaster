@@ -59,6 +59,7 @@ pub struct Session {
     pub status: SessionStatus,
     pub question_data: Pubkey, // pda referring to SessionData
     pub winners : [Pubkey; 2],
+    pub prizes_distributed: bool,
 }
 
 #[account]
