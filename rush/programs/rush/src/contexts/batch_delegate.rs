@@ -14,7 +14,7 @@ pub struct DelegateAllPlayerSessions<'info> {
     #[account(mut)]
     pub admin: Signer<'info>,
     
-    // Session to read the players array. This is possible cause the base layer can still read the state if the session account in the ER 
+    // Session to read the players array. This is possible cause the base layer can still read the state if the session account in the ER
     #[account(
       seeds = [SESSION, &session_id],
       bump,
@@ -75,7 +75,7 @@ impl<'info> DelegateAllPlayerSessions<'info> {
         
         // Get the 4 players from session
         let players: [Pubkey; 4] = self.session.players;
-        
+       
         // Delegate Player 1's PSA
         let player1_seeds = [PLAYER_SESSION_ANSWER, &session_id, players[0].as_ref()];
         self.delegate_player1_session_answer(

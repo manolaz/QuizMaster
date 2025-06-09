@@ -41,6 +41,9 @@ pub enum RushError {
     #[msg("Session already started")]
     SessionAlreadyStarted,
 
+     #[msg("Price already distributed")]
+    PrizesAlreadyDistributed,
+
     #[msg("No more questions in session")]
     NoMoreQuestions,
 

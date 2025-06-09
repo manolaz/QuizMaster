@@ -52,10 +52,7 @@ pub struct Session {
     pub creator: Pubkey,                   
     pub players: [Pubkey; 4],           
     pub current_players: u8,  // How many joined
-    pub question_start_time: i64, // For timing
-    pub created_at: u64,
     pub started_at: u64,
-    pub ended_at: u64,
     pub status: SessionStatus,
     pub question_data: Pubkey, // pda referring to SessionData
     pub winners : [Pubkey; 2],

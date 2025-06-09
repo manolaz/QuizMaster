@@ -48,6 +48,14 @@ pub struct DistributePrizes<'info> {
 
 impl<'info> DistributePrizes<'info> {
     pub fn distribute_prizes(&mut self, _session_id: [u8; 32]) -> Result<()> {
+
+    require!(
+    !self.session.prizes_distributed,
+    RushError::PrizesAlreadyDistributed
+    );
+    self.session.prizes_distributed = true;
+
+
         // Get winners for logging
         let stored_winner1 = self.session.winners[0];
         let stored_winner2 = self.session.winners[1];

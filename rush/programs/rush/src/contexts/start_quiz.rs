@@ -42,7 +42,7 @@ impl<'info> StartQuiz<'info> {
         // Update session status and timing in rollup (real-time!)
         self.session.status = SessionStatus::Live;
         self.session.started_at = clock.unix_timestamp as u64;
-        self.session.question_start_time = clock.unix_timestamp;
+
 
         msg!("Quiz started in MagicBlock rollup!");
         msg!("Session ID: {:?}", session_id);

@@ -39,8 +39,6 @@ impl <'info> CreateSession <'info> {
     question_ids: [u16; 10], //array of question IDs since we have a fixed number of questions from the backend
     correct_answers: [u8; 10], //array of question IDs since we have a fixed number of questions from the backend
   ) -> Result<()> {
-
-     let clock = Clock::get()?;
     // set session data account 
     self.session_data.set_inner(
       SessionData{
@@ -53,11 +51,9 @@ impl <'info> CreateSession <'info> {
       Session { 
       session_id, 
       creator: self.admin.key(), 
-      players: [Pubkey::default(); 4], current_players: 0, 
-      question_start_time: 0,  
-      created_at: clock.unix_timestamp as u64, 
+      players: [Pubkey::default(); 4], 
+      current_players: 0, 
       started_at: 0, 
-      ended_at: 0, 
       status: SessionStatus::Initialized, 
       question_data: self.session_data.key(), 
       winners:  [Pubkey::default(); 2],
