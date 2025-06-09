@@ -1,8 +1,8 @@
 use anchor_lang::prelude::*;
 use ephemeral_rollups_sdk::anchor::commit;
 use ephemeral_rollups_sdk::ephem::commit_and_undelegate_accounts;
-use crate::state::{Session, SessionData, SessionStatus, Leaderboard, PlayerSessionAnswer};
-use crate::constants::{SESSION, SESSIONDATA, LEADERBOARD, PLAYER_SESSION_ANSWER};
+use crate::state::{Session, SessionData, SessionStatus, PlayerSessionAnswer};
+use crate::constants::{SESSION, SESSIONDATA, PLAYER_SESSION_ANSWER};
 use crate::errors::RushError;
 
 // END GAME : End game + commit and undelegate in one instruction
@@ -30,14 +30,6 @@ pub struct EndGameAndUndelegate<'info> {
         bump,
     )]
     pub session_data: Account<'info, SessionData>,
-
-    // Leaderboard account
-    #[account(
-        mut,
-        seeds = [LEADERBOARD, admin.key().as_ref()],
-        bump,
-    )]
-    pub leaderboard: Account<'info, Leaderboard>,
 
     // All 4 PlayerSessionAnswer accounts explicitly defined
     #[account(
@@ -109,7 +101,6 @@ impl<'info> EndGameAndUndelegate<'info> {
 
         // Update session status to completed
         self.session.status = SessionStatus::Completed;
-        self.session.prizes_distributed = true;
         self.session.ended_at = Clock::get()?.unix_timestamp as u64;
 
         // Commit and undelegate all accounts back to mainnet
@@ -118,7 +109,6 @@ impl<'info> EndGameAndUndelegate<'info> {
             vec![
                 &self.session.to_account_info(),
                 &self.session_data.to_account_info(),
-                &self.leaderboard.to_account_info(),
                 &self.player1_session_answer.to_account_info(),
                 &self.player2_session_answer.to_account_info(),
                 &self.player3_session_answer.to_account_info(),

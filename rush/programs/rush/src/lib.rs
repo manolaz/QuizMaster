@@ -28,6 +28,20 @@ pub mod rush {
     )
     }
 
+    //delegate leaderboard one time as it is global 
+    pub fn delegate_leaderboard(
+    ctx: Context<DelegateLeaderboard>
+    ) -> Result<()> {
+    ctx.accounts.delegate_global_leaderboard()
+    }
+
+    // undelegate  leaderboard
+    pub fn undelegate_leaderboard(
+    ctx: Context<UndelegateLeaderboard>
+    ) -> Result<()> {
+        ctx.accounts.undelegate_leaderboard()
+    }
+
     // create user profile 
     pub fn create_profile(
      ctx: Context<CreateProfile>,
@@ -42,6 +56,14 @@ pub mod rush {
     amount: u64
     ) -> Result<()> {
     ctx.accounts.fund_vault(amount)
+    }
+
+    //withdraw from vault
+    pub fn withdraw( 
+    ctx: Context<Withdraw>,
+    amount: u64
+    ) -> Result<()> {
+    ctx.accounts.withdraw_vault(amount)
     }
 
     // create game session for users / frens to join 

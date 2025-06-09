@@ -1,5 +1,5 @@
 use anchor_lang::prelude::*;
-use crate::constants::{LEADERBOARD, SESSION,SESSIONDATA};
+use crate::constants::{SESSION,SESSIONDATA};
 
 
 //magic block SDK 
@@ -32,15 +32,6 @@ pub struct DelegateAccounts<'info> {
       bump,
     )]
     pub session_data: AccountInfo<'info>,
-
-    ///CHECK : The Leaderboard account to be delegated to the ER
-    #[account(
-      mut,
-      del,
-      seeds = [LEADERBOARD, admin.key().as_ref()],
-      bump,
-    )]
-    pub leaderboard: AccountInfo<'info>,
 }
 
 impl <'info> DelegateAccounts<'info> {
@@ -63,9 +54,6 @@ impl <'info> DelegateAccounts<'info> {
       let session_data_seeds = [SESSIONDATA, admin.as_ref(), &session_id];
       self.delegate_session_data(&self.admin, &session_data_seeds, DelegateConfig::default())?;
 
-      // delegate the leaderboard account to the ER
-      let leaderboard_seeds = [LEADERBOARD, admin.as_ref()];
-      self.delegate_leaderboard(&self.admin, &leaderboard_seeds, DelegateConfig::default())?;
         Ok(())
     }
 }

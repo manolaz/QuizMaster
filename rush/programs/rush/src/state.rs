@@ -79,7 +79,8 @@ pub struct PlayerSessionAnswer {
 #[derive(InitSpace)]
 // Game vault for rewards disbursement
 pub struct GameVault {
-    pub total_disbursed: u64, 
+    pub total_disbursed: u64,
+     pub total_withdrawn: u64, 
     pub bump: u8,
     pub total_games_played: u64,
 }

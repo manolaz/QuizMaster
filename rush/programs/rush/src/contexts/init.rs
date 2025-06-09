@@ -67,6 +67,7 @@ impl <'info> Initialize <'info> {
     self.vault_state.set_inner(
       GameVault {
         total_disbursed: 0,
+        total_withdrawn: 0,
         bump: bump.vault,
         total_games_played: 0,
       }
