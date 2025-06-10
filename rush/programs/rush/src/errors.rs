@@ -20,6 +20,7 @@ pub enum RushError {
     
     #[msg("Session not ready - need exactly 4 players")]
     SessionNotReady,
+    
 
     #[msg("Session is inactive")]
     SessionInactive,

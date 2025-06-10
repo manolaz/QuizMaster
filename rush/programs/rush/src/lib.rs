@@ -1,7 +1,7 @@
 use anchor_lang::prelude::*;
 use ephemeral_rollups_sdk::anchor::ephemeral;
 
-declare_id!("3v8pGncXki7YbCKcwZzBu6jRAz39WuNxNwhpspreWMSF");
+declare_id!("FoEnQBPe5kmyQsCLKvVXddfNEGPRYWZ1hCe8q72mEEsz");
 
 mod state;
 mod constants;
@@ -84,6 +84,14 @@ pub mod rush {
     ctx.accounts.delegate_accounts(session_id)
     }
 
+    //create psa 
+    pub fn create_player_psa (
+    ctx: Context<CreatePlayerSessionAnswer>,
+    session_id: [u8; 32],
+    ) -> Result<()> {
+        ctx.accounts.create_psa(session_id)
+    }
+
     // join the game session
     pub fn join_game_session(
      ctx: Context<JoinSession>,
@@ -94,10 +102,11 @@ pub mod rush {
 
     //batch delegate all joined frens to the ER
     pub fn delegate_frens(
-    ctx: Context<DelegateAllPlayerSessions>,
-    session_id: [u8; 32]
+    ctx: Context<DelegatePlayerSession>,
+    session_id: [u8; 32],
+    player_pubkey: Pubkey,
     ) -> Result<()> {
-    ctx.accounts.delegate_all_player_sessions(session_id)
+    ctx.accounts.delegate_player_session(session_id, player_pubkey)
     }
 
 
