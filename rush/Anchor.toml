@@ -15,7 +15,7 @@ rush = "7DMdLxHNfQ7rD5BWKC6R4JpptZgfuwXK4P1LnBAywMo3"
 url = "https://api.apr.dev"
 
 [provider]
-cluster = "https://devnet.helius-rpc.com/?api-key=4a2f7893-25a4-4014-a367-4f2fac75aa63"
+cluster = 
 wallet = "~/.config/solana/id.json"
 
 [scripts]
