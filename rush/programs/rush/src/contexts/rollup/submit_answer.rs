@@ -1,6 +1,6 @@
 use anchor_lang::prelude::*;
 use crate::state::{
-    Session, SessionData, SessionStatus, Leaderboard, PlayerSessionAnswer
+    Session, SessionData, SessionStatus, Leaderboard, PlayerSessionAnswer,
 };
 use crate::constants::{
     SESSION, SESSIONDATA, LEADERBOARD, PLAYER_SESSION_ANSWER
@@ -22,13 +22,12 @@ pub struct SubmitAnswer<'info> {
     )]
     pub session: Account<'info, Session>,
 
-    // Session data - already in rollup
+    // Session data - read only
     #[account(
         seeds = [SESSIONDATA, session.creator.as_ref(), &session_id],
         bump,
     )]
     pub session_data: Account<'info, SessionData>,
-
     // Player session answer - already in rollup
     #[account(
         mut,
@@ -80,9 +79,9 @@ impl<'info> SubmitAnswer<'info> {
         let correct_answer = self.session_data.correct_answers[question_index as usize];
         
         if answer == correct_answer {
-            // Add points for correct answer
-            self.player_session_answer.score += 100;
-            
+        // Add points for correct answer
+        self.player_session_answer.score += 100;
+
         //leaderboard Update
         self.leaderboard.update_player_score(
           self.player.key(), 

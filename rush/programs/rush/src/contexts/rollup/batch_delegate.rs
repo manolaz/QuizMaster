@@ -1,7 +1,7 @@
 use anchor_lang::prelude::*;
 use ephemeral_rollups_sdk::anchor::delegate;
 use ephemeral_rollups_sdk::cpi::DelegateConfig;
-use crate::constants::PLAYER_SESSION_ANSWER;
+use crate::constants::{PLAYER_SESSION_ANSWER};
 use crate::errors::RushError;
 
 // Single PSA delegation
@@ -41,6 +41,7 @@ impl<'info> DelegatePlayerSession<'info> {
             &[PLAYER_SESSION_ANSWER, &session_id, player_pubkey.as_ref()],
             DelegateConfig::default(),
         )?;
+
 
         msg!("✅ PlayerSessionAnswer account delegated to ephemeral rollup");
         Ok(())

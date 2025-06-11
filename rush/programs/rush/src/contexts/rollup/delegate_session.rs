@@ -1,5 +1,5 @@
 use anchor_lang::prelude::*;
-use crate::constants::{SESSION,SESSIONDATA};
+use crate::constants::{SESSION};
 
 
 //magic block SDK 
@@ -23,15 +23,6 @@ pub struct DelegateAccounts<'info> {
         bump,
     )]
     pub session: AccountInfo<'info>,
-
-    /// CHECK : the player session answer account to be delegated too
-    #[account(
-      mut,
-      del,
-      seeds = [SESSIONDATA, admin.key().as_ref(), &session_id],
-      bump,
-    )]
-    pub session_data: AccountInfo<'info>,
 }
 
 impl <'info> DelegateAccounts<'info> {
@@ -46,14 +37,6 @@ impl <'info> DelegateAccounts<'info> {
         &self.admin, 
         &session_seeds, 
         DelegateConfig::default())?;
-
-       
-      // delegate the session data account to the ER
-       let admin = self.admin.key();
-
-      let session_data_seeds = [SESSIONDATA, admin.as_ref(), &session_id];
-      self.delegate_session_data(&self.admin, &session_data_seeds, DelegateConfig::default())?;
-
-        Ok(())
+    Ok(())
     }
 }

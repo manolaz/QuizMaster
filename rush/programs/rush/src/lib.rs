@@ -1,7 +1,7 @@
 use anchor_lang::prelude::*;
 use ephemeral_rollups_sdk::anchor::ephemeral;
 
-declare_id!("FoEnQBPe5kmyQsCLKvVXddfNEGPRYWZ1hCe8q72mEEsz");
+declare_id!("7DMdLxHNfQ7rD5BWKC6R4JpptZgfuwXK4P1LnBAywMo3");
 
 mod state;
 mod constants;
@@ -10,9 +10,12 @@ mod contexts;
 
 use contexts::*;
 
+
 #[ephemeral]
 #[program]
 pub mod rush {
+    use crate::contexts::delegate_leaderboard::DelegateLeaderboard;
+
     use super::*;
 
     //initialize program
@@ -34,15 +37,7 @@ pub mod rush {
     ) -> Result<()> {
     ctx.accounts.delegate_global_leaderboard()
     }
-
-    // undelegate  leaderboard
-    pub fn undelegate_leaderboard(
-    ctx: Context<UndelegateLeaderboard>
-    ) -> Result<()> {
-        ctx.accounts.undelegate_leaderboard()
-    }
-
-    // create user profile 
+     // create user profile 
     pub fn create_profile(
      ctx: Context<CreateProfile>,
     name: String,
@@ -50,6 +45,29 @@ pub mod rush {
     ctx.accounts.create_profile(name)
     }
 
+    //delgate profile
+    pub fn delegate_profile(
+    ctx: Context<DelegateProfile>,
+    player_pubkey: Pubkey,
+    ) -> Result<()> {
+    ctx.accounts.delegate_user_profile(player_pubkey)
+    }
+
+     //Undelgate profile
+    pub fn undelegate_profile(
+    ctx: Context<UndelegateProfile>,
+    player_pubkey: Pubkey,
+    ) -> Result<()> {
+    ctx.accounts.undelegate_player_profile(player_pubkey)
+    }
+
+    // undelegate  leaderboard
+    pub fn undelegate_leaderboard(
+    ctx: Context<UndelegateLeaderboard>
+    ) -> Result<()> {
+        ctx.accounts.undelegate_leaderboard()
+    }
+    
     //fund the vault from admin 
     pub fn fund_vault(
     ctx: Context<FundVault>,

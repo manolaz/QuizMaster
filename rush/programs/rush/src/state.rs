@@ -86,7 +86,7 @@ pub struct GameVault {
 #[account]
 #[derive(InitSpace)]
 // Leaderboard account
-pub struct Leaderboard {
+pub struct Leaderboard { 
 pub top_players: [Pubkey; 10],
 pub top_scores: [u64; 10], 
 pub last_updated: i64,

@@ -1,6 +1,6 @@
 use anchor_lang::prelude::*;
-use crate::state::{PlayerSessionAnswer, PlayerState, Session, SessionStatus};
-use crate::constants::{PLAYER_STATE, PLAYER_SESSION_ANSWER, SESSION};
+use crate::state::{PlayerSessionAnswer, Session, SessionStatus};
+use crate::constants::{PLAYER_SESSION_ANSWER, SESSION};
 use crate::errors::RushError;
 
 // MagicBlock SDK
@@ -15,16 +15,6 @@ use ephemeral_rollups_sdk::ephem::commit_accounts;
 pub struct JoinSession<'info> {
     #[account(mut)]
     pub player: Signer<'info>,
-
-    // Player state must exist (profile created)
-    #[account(
-        mut,
-        seeds = [PLAYER_STATE, player.key().as_ref()],
-        bump,
-        constraint = player_state.created_at != 0 @ RushError::ProfileNotCreated
-    )]
-    pub player_state: Account<'info, PlayerState>,
-
     // PSA must already exist and be delegated to ER
     #[account(
         mut,
@@ -76,9 +66,6 @@ impl<'info> JoinSession<'info> {
         let player_index = self.session.current_players;
         self.session.players[player_index as usize] = self.player.key();
         self.session.current_players += 1;
-
-        // Update player stats
-        self.player_state.quizzes_joined += 1;
 
         // Check if session is ready (all 4 players joined)
         if self.session.current_players == 4 {
